@@ -1,6 +1,6 @@
 import tensorflow as tf
 tf.compat.v1.disable_eager_execution()
-import keras
+
 import numpy as  np
 
 n_nodes_hl1 = 512
@@ -34,11 +34,11 @@ def neural_network_model(data):
 	#data = tf.layers.dropout(data, 0.6)
 	l1 = tf.add(tf.matmul(data,hidden_1_layer['weights']), hidden_1_layer['biases'])
 	l1 = tf.nn.relu(l1)
-	l1 = keras.layers.Dropout(l1, 0.6)
+	l1 = tf.layers.dropout(l1, 0.6)
 	
 	
 	l2 = tf.add(tf.matmul(l1,hidden_2_layer['weights']), hidden_2_layer['biases'])
-	l2  = keras.layers.Dropout(l2, 0.6)
+	l2  = tf.layers.dropout(l2, 0.6)
 	
 	
 	output = tf.matmul(l2,output_layer['weights']) + output_layer['biases']
@@ -63,6 +63,8 @@ def train_neural_network(x):
 				end =i+batch_size
 				batch_x =np.array(train_x[start:end])
 				batch_y =np.array(train_y[start:end])
+
+				#print("Batch:", batch_x)
 		
 				anomaly_score = sess.run(prediction,feed_dict={x: batch_x})
 				normal_score,W1 = sess.run([prediction,weights_1],feed_dict={x: batch_y})

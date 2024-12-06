@@ -29,7 +29,7 @@ for folder in anomaly_vid:
 				if cnt == 32:
 					break
 				line = line.split("\n")[0]
-				ano_data.append(map(float,line.split(",")))
+				ano_data.append(list(map(float,line.split(","))))
 for folder in normal_vid:
 	path = "./FOutput/" + folder
 	files = os.listdir(path)
@@ -42,7 +42,7 @@ for folder in normal_vid:
 				if cnt == 32:
 					break
 				line = line.split("\n")[0]
-				normal_data.append(map(float,line.split(",")))
+				normal_data.append(list(map(float,line.split(","))))
 
 train_ano = ano_data[0:4000]
 train_norm = normal_data[0:4000]
