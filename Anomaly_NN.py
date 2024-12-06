@@ -47,6 +47,17 @@ def neural_network_model(data):
 
 	return output , hidden_1_layer['weights'] , hidden_2_layer['weights'] , output_layer['weights']
 
+def calculate_accuracy(predictions, labels):
+	"""
+	Calculate accuracy based on predictions and true labels.
+	:param predictions: List of predicted values (0 or 1).
+	:param labels: List of ground truth labels (0 or 1).
+	:return: Accuracy as a percentage.
+	"""
+	correct_predictions = sum([1 for pred, label in zip(predictions, labels) if (pred >= 0.5 and label == 1) or (pred < 0.5 and label == 0)])
+	accuracy = (correct_predictions / len(labels)) * 100
+	return accuracy
+
 def train_neural_network(x):
 	prediction , weights_1 , weights_2, weights_3 = neural_network_model(x)
 	cost = 0.5 * (tf.nn.l2_loss(weights_1) + tf.nn.l2_loss(weights_2) + tf.nn.l2_loss(weights_3)) + extra
@@ -80,6 +91,7 @@ def train_neural_network(x):
 				o,_ = sess.run([optimizer,prediction], feed_dict={extra : final_cost,x: batch_x})
 				i =	i + batch_size
 			print('Epoch', epoch, 'completed out of',hm_epochs,'loss:',epoch_loss)
+		#anom
 		i = 0
 		count = 0
 		while i < len(test_x):
@@ -91,6 +103,7 @@ def train_neural_network(x):
 			i = i + 32
 			count += 1
 		print ("--------------------------------------------")
+		#norm
 		i = 0
 		count = 0
 		while i < len(test_y):
@@ -100,7 +113,23 @@ def train_neural_network(x):
 				ret.append(temp)
 			print (sum(ret) * n_width[count])
 			i = i + 32
-			count += 1		
+			count += 1
+
+ 			# Test and calculate accuracy
+			predictions = []
+			true_labels = []
+			for i in range(len(test_x)):
+				pred = sess.run(prediction, feed_dict={x: np.array(test_x[i]).reshape(1, -1)})[0][0]
+				predictions.append(pred)
+				true_labels.append(1)  # test_x are anomaly samples
+		
+			for i in range(len(test_y)):
+				pred = sess.run(prediction, feed_dict={x: np.array(test_y[i]).reshape(1, -1)})[0][0]
+				predictions.append(pred)
+				true_labels.append(0)  # test_y are normal samples
+
+			accuracy = calculate_accuracy(predictions, true_labels)
+			print(f"Accuracy: {accuracy:.2f}%")
 
 		
 
