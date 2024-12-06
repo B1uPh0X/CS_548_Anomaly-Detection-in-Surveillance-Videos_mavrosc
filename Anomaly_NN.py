@@ -118,18 +118,18 @@ def train_neural_network(x):
  			# Test and calculate accuracy
 			predictions = []
 			true_labels = []
-			for i in range(len(test_x)):
-				pred = sess.run(prediction, feed_dict={x: np.array(test_x[i]).reshape(1, -1)})[0][0]
-				predictions.append(pred)
-				true_labels.append(1)  # test_x are anomaly samples
+		for i in range(len(test_x)):
+			pred = sess.run(prediction, feed_dict={x: np.array(test_x[i]).reshape(1, -1)})[0][0]
+			predictions.append(pred)				
+			true_labels.append(1)  # test_x are anomaly samples
 		
-			for i in range(len(test_y)):
-				pred = sess.run(prediction, feed_dict={x: np.array(test_y[i]).reshape(1, -1)})[0][0]
-				predictions.append(pred)
-				true_labels.append(0)  # test_y are normal samples
+		for i in range(len(test_y)):
+			pred = sess.run(prediction, feed_dict={x: np.array(test_y[i]).reshape(1, -1)})[0][0]
+			predictions.append(pred)
+			true_labels.append(0)  # test_y are normal samples
 
-			accuracy = calculate_accuracy(predictions, true_labels)
-			print(f"Accuracy: {accuracy:.2f}%")
+		accuracy = calculate_accuracy(predictions, true_labels)
+		print(f"Accuracy: {accuracy:.2f}%")
 
 		
 
