@@ -1,3 +1,17 @@
+# CS548
+
+This repository is a fork of ['Anomaly-Detection-in-Surveillance-Videos'](https://github.com/vantage-vision-vv/Anomaly-Detection-in-Surveillance-Videos)
+This is a fork created for a CS 548 class project at SUNY Polytechnic
+Team member: Christopher mavros 
+
+Requirements:
+-Python 3.7 or newer
+-numpy 1.21 or newer
+
+Changes:
+-created updated.py
+    -A modified version of the original code but written to use numpy instead of tensorflow
+
 #   Real-world Anomaly Detection in Surveillance Videos
 
 This repository provides the implementation for the paper 'Real-world Anomaly Detection in Surveillance Videos' by Waqas Sultani, Chen Chen, Mubarak Shah.

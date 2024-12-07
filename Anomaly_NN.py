@@ -115,12 +115,12 @@ def train_neural_network(x):
 			i = i + 32
 			count += 1
 
- 			# Test and calculate accuracy
-			predictions = []
-			true_labels = []
+ 		# Test and calculate accuracy
+		predictions = []
+		true_labels = []
 		for i in range(len(test_x)):
 			pred = sess.run(prediction, feed_dict={x: np.array(test_x[i]).reshape(1, -1)})[0][0]
-			predictions.append(pred)				
+			predictions.append(pred)
 			true_labels.append(1)  # test_x are anomaly samples
 		
 		for i in range(len(test_y)):
